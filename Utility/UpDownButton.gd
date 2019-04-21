@@ -15,11 +15,11 @@ onready var minus : Button = $MinusButton
 onready var plus : Button = $PlusButton
 onready var __last_value : int = value
 
-var isReady : bool = false
+var __isReady : bool = false
 
 ## Methods
 func _ready():
-	isReady = true
+	__isReady = true
 	_updateAvailability()
 
 func set_value(new_value : int):
@@ -30,7 +30,7 @@ func get_value() -> int:
 	return value
 
 func _updateAvailability():
-	if !isReady:
+	if !__isReady:
 		return
 	
 	minus.set_disabled(false)

@@ -1,42 +1,27 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://EconPhase/Income/HomeworldStatusRow.gd" type="Script" id=1]
-[ext_resource path="res://UpDownButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Utility/ScrollBarRow.tscn" type="PackedScene" id=1]
+[ext_resource path="res://EconPhase/Income/HomeworldStatusRow.gd" type="Script" id=2]
 
-[node name="HomeworldStatusRow" type="HBoxContainer"]
-margin_top = 18.0
-margin_right = 207.0
-margin_bottom = 38.0
-alignment = 1
-script = ExtResource( 1 )
+[node name="HomeworldStatusRow" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
 
-[node name="CurrentCP" type="Label" parent="."]
-margin_top = 3.0
-margin_right = 36.0
-margin_bottom = 17.0
-rect_min_size = Vector2( 24, 0 )
-text = "20 CP"
-align = 1
+[node name="CurrentValue" parent="." index="0"]
+margin_left = 0.0
+margin_right = 40.0
+text = "20 CP "
 
-[node name="CPScrollBar" type="HScrollBar" parent="."]
-margin_left = 40.0
-margin_top = 4.0
-margin_right = 140.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 100, 0 )
-size_flags_vertical = 4
+[node name="ScrollBar" parent="." index="1"]
+margin_left = 44.0
+margin_right = 144.0
 max_value = 20.0
 step = 5.0
 value = 20.0
 
-[node name="UpDownButton" parent="." instance=ExtResource( 2 )]
-anchor_right = 0.0
-margin_left = 144.0
-margin_right = 207.0
-margin_bottom = 20.0
+[node name="UpDownButton" parent="." index="2"]
+margin_left = 148.0
+margin_right = 211.0
 value = 20
 max_value = 20
 step = 5
 
-[connection signal="value_changed" from="CPScrollBar" to="." method="_on_CPScrollBar_value_changed"]
-[connection signal="value_changed" from="UpDownButton" to="." method="_on_UpDownButton_value_changed"]

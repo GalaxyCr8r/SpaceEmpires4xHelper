@@ -1,4 +1,5 @@
 extends HBoxContainer
+class_name IncomeRow
 
 export var value : int = 0 setget set_value, get_value
 

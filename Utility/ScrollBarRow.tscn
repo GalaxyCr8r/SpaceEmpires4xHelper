@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Utility/ScrollBarRow.gd" type="Script" id=1]
+[ext_resource path="res://Utility/UpDownButton.tscn" type="PackedScene" id=2]
+
+[node name="ScrollBarRow" type="HBoxContainer"]
+margin_top = 18.0
+margin_right = 207.0
+margin_bottom = 38.0
+alignment = 1
+script = ExtResource( 1 )
+value = 0
+
+[node name="CurrentValue" type="Label" parent="."]
+margin_left = 6.0
+margin_top = 3.0
+margin_right = 30.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 24, 0 )
+text = "0"
+align = 1
+
+[node name="ScrollBar" type="HScrollBar" parent="."]
+margin_left = 34.0
+margin_top = 4.0
+margin_right = 134.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_vertical = 4
+max_value = 255.0
+step = 1.0
+
+[node name="UpDownButton" parent="." instance=ExtResource( 2 )]
+anchor_right = 0.0
+margin_left = 138.0
+margin_right = 201.0
+margin_bottom = 20.0
+max_value = 255
+
+[connection signal="value_changed" from="ScrollBar" to="." method="_on_CPScrollBar_value_changed"]
+[connection signal="value_changed" from="UpDownButton" to="." method="_on_UpDownButton_value_changed"]

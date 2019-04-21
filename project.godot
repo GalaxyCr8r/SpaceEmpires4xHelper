@@ -10,11 +10,23 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "HBoxContainer",
+"class": "IncomeRow",
+"language": "GDScript",
+"path": "res://Utility/IncomeRow.gd"
+}, {
+"base": "HBoxContainer",
+"class": "ScrollBarRow",
+"language": "GDScript",
+"path": "res://Utility/ScrollBarRow.gd"
+}, {
+"base": "HBoxContainer",
 "class": "UpDownButton",
 "language": "GDScript",
-"path": "res://UpDownButton.gd"
+"path": "res://Utility/UpDownButton.gd"
 } ]
 _global_script_class_icons={
+"IncomeRow": "",
+"ScrollBarRow": "",
 "UpDownButton": ""
 }
 
