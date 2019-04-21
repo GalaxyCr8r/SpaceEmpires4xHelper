@@ -33,8 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="SpaceEmpires4x Helper"
-run/main_scene="res://TurnMenus.tscn"
-run/low_processor_mode=true
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [display]
