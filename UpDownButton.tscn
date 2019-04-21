@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UpDownButton.gd" type="Script" id=1]
+
+[node name="UpDownButton" type="HBoxContainer"]
+anchor_right = 1.0
+margin_bottom = 35.0
+rect_pivot_offset = Vector2( -370, -10 )
+size_flags_vertical = 0
+custom_constants/separation = 10
+alignment = 1
+script = ExtResource( 1 )
+
+[node name="MinusButton" type="Button" parent="."]
+margin_right = 115.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+text = " - "
+
+[node name="PlusButton" type="Button" parent="."]
+margin_left = 125.0
+margin_right = 240.0
+margin_bottom = 35.0
+size_flags_horizontal = 3
+text = " + "
+
+[connection signal="button_up" from="MinusButton" to="." method="_on_MinusButton_button_up"]
+[connection signal="button_up" from="PlusButton" to="." method="_on_PlusButton_button_up"]
