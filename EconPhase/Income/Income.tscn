@@ -10,117 +10,143 @@
 [node name="Income" type="Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
 margin_top = 32.0
-margin_right = -4.0
+margin_right = -12.0
 margin_bottom = -4.0
+size_flags_horizontal = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 20.0
+margin_left = 8.0
 margin_top = 10.0
-margin_right = -20.0
+margin_right = -16.0
 
-[node name="IncomeSources" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 margin_right = 211.0
 margin_bottom = 274.0
+size_flags_horizontal = 3
 custom_constants/separation = 13
 
-[node name="Homeworld" type="VBoxContainer" parent="MarginContainer/IncomeSources"]
+[node name="ScrollableIncomeSources" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 211.0
+margin_bottom = 229.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="IncomeSources" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources"]
+margin_right = 211.0
+margin_bottom = 218.0
+size_flags_horizontal = 3
+
+[node name="Homeworld" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources"]
 margin_right = 211.0
 margin_bottom = 38.0
 
-[node name="HWStatusLabel" type="Label" parent="MarginContainer/IncomeSources/Homeworld"]
+[node name="HWStatusLabel" type="Label" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources/Homeworld"]
 margin_right = 211.0
 margin_bottom = 14.0
 text = "Homeworld Status:"
 align = 1
 
-[node name="HomeworldStatusRow" parent="MarginContainer/IncomeSources/Homeworld" instance=ExtResource( 1 )]
+[node name="HomeworldStatusRow" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources/Homeworld" instance=ExtResource( 1 )]
 margin_right = 211.0
 
-[node name="Colonies" type="VBoxContainer" parent="MarginContainer/IncomeSources"]
-margin_top = 51.0
+[node name="Panel2" type="Panel" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources"]
+margin_top = 42.0
 margin_right = 211.0
-margin_bottom = 137.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 8 )
 
-[node name="Title" type="Label" parent="MarginContainer/IncomeSources/Colonies"]
+[node name="Colonies" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources"]
+margin_top = 54.0
+margin_right = 211.0
+margin_bottom = 140.0
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources/Colonies"]
 margin_right = 211.0
 margin_bottom = 14.0
 text = "Income-producing Colonies:"
 align = 1
 
-[node name="1CpColonyRow" parent="MarginContainer/IncomeSources/Colonies" instance=ExtResource( 2 )]
+[node name="1CpColonyRow" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources/Colonies" instance=ExtResource( 2 )]
 margin_right = 211.0
 
-[node name="3CpColonyRow" parent="MarginContainer/IncomeSources/Colonies" instance=ExtResource( 3 )]
+[node name="3CpColonyRow" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources/Colonies" instance=ExtResource( 3 )]
 margin_top = 42.0
 margin_right = 211.0
 margin_bottom = 62.0
 
-[node name="5CpColonyRow" parent="MarginContainer/IncomeSources/Colonies" instance=ExtResource( 4 )]
+[node name="5CpColonyRow" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources/Colonies" instance=ExtResource( 4 )]
 margin_top = 66.0
 margin_right = 211.0
 margin_bottom = 86.0
 
-[node name="Minerals" type="VBoxContainer" parent="MarginContainer/IncomeSources"]
-editor/display_folded = true
-margin_top = 150.0
+[node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources"]
+margin_top = 144.0
 margin_right = 211.0
-margin_bottom = 229.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 0, 8 )
+
+[node name="Minerals" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources"]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 156.0
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/IncomeSources/Minerals"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources/Minerals"]
 margin_right = 211.0
 margin_bottom = 14.0
 text = "Minerals Collected:"
 align = 1
 
-[node name="5CpMineral" parent="MarginContainer/IncomeSources/Minerals" instance=ExtResource( 5 )]
+[node name="5CpMineral" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources/Minerals" instance=ExtResource( 5 )]
 margin_right = 211.0
 
-[node name="10CpMineral" parent="MarginContainer/IncomeSources/Minerals" instance=ExtResource( 6 )]
+[node name="10CpMineral" parent="MarginContainer/VBoxContainer/ScrollableIncomeSources/IncomeSources/Minerals" instance=ExtResource( 6 )]
 margin_top = 42.0
 margin_right = 211.0
 margin_bottom = 62.0
 
-[node name="Misc" type="HBoxContainer" parent="MarginContainer/IncomeSources"]
+[node name="Misc" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 242.0
 margin_right = 211.0
 margin_bottom = 274.0
 
-[node name="CarryOver" type="VBoxContainer" parent="MarginContainer/IncomeSources/Misc"]
+[node name="CarryOver" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Misc"]
 margin_right = 103.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 
-[node name="Title" type="Label" parent="MarginContainer/IncomeSources/Misc/CarryOver"]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/Misc/CarryOver"]
 margin_right = 103.0
 margin_bottom = 14.0
 text = "Carry-Over:"
 align = 1
 
-[node name="Amount" type="Label" parent="MarginContainer/IncomeSources/Misc/CarryOver"]
+[node name="Amount" type="Label" parent="MarginContainer/VBoxContainer/Misc/CarryOver"]
 margin_top = 18.0
 margin_right = 103.0
 margin_bottom = 32.0
 text = "0"
 align = 1
 
-[node name="SubTotal" type="VBoxContainer" parent="MarginContainer/IncomeSources/Misc"]
+[node name="SubTotal" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Misc"]
 margin_left = 107.0
 margin_right = 211.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
 
-[node name="Title" type="Label" parent="MarginContainer/IncomeSources/Misc/SubTotal"]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/Misc/SubTotal"]
 margin_right = 104.0
 margin_bottom = 14.0
 text = "Sub-Total:"
 align = 1
 
-[node name="Amount" type="Label" parent="MarginContainer/IncomeSources/Misc/SubTotal"]
+[node name="Amount" type="Label" parent="MarginContainer/VBoxContainer/Misc/SubTotal"]
 margin_top = 18.0
 margin_right = 104.0
 margin_bottom = 32.0
