@@ -32,7 +32,7 @@ func _updateSubTotal():
 	emit_signal("value_changed", subTotalCp)
 	
 	if __ready:
-		carryOverAmount.value = Global.remainingCp
+		carryOverAmount.value = Global.lastTurnCarryOver
 		subTotalAmount.value = subTotalCp
 
 ## Connected Signals
