@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Utility/TitleAmount.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/Terminus.tres" type="DynamicFont" id=2]
+
+[node name="TitleAmount" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+value = ""
+
+[node name="Title" type="Label" parent="."]
+margin_right = 320.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "Title"
+align = 1
+
+[node name="Amount" type="Label" parent="."]
+margin_top = 18.0
+margin_right = 320.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 2 )
+text = "Amount"
+align = 1
+

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Utility/IncomeRow.gd" type="Script" id=1]
-[ext_resource path="res://Utility/UpDownButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/IndepModern.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Utility/UpDownButton.tscn" type="PackedScene" id=3]
 
 [node name="IncomeRow" type="HBoxContainer"]
 margin_top = 18.0
@@ -14,7 +15,9 @@ margin_top = 3.0
 margin_right = 48.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 48, 0 )
-text = "1 CP:"
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.745098, 0.854902, 1, 1 )
+text = "X CP:"
 align = 1
 
 [node name="Amount" type="Label" parent="."]
@@ -24,10 +27,11 @@ margin_right = 125.0
 margin_bottom = 17.0
 rect_min_size = Vector2( 32, 0 )
 size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
 text = "0"
 align = 1
 
-[node name="UpDownButton" parent="." instance=ExtResource( 2 )]
+[node name="UpDownButton" parent="." instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_left = 129.0
 margin_right = 192.0

@@ -15,45 +15,40 @@ onready var minus : Button = $MinusButton
 onready var plus : Button = $PlusButton
 onready var __last_value : int = value
 
-var __isReady : bool = false
-
 ## Methods
 func _ready():
-	__isReady = true
-	_updateAvailability()
+	call_deferred("_updateAvailability", true)
 
 func set_value(new_value : int):
 	value = new_value
-	_updateAvailability()
+	call_deferred("_updateAvailability")
 
 func get_value() -> int:
 	return value
 
-func _updateAvailability():
-	if !__isReady:
-		return
-	
-	minus.set_disabled(false)
-	plus.set_disabled(false)
-	if value < min_value:
-		value = min_value
-	if value == min_value:
-		minus.set_disabled(true)
-		
-	if value > max_value:
-		value = max_value
-	if value == max_value:
-		plus.set_disabled(true)
-	
-	if value != __last_value:
-		emit_signal("value_changed", value)
+func _updateAvailability(force:bool = false):
+	## If we want to force the change, or if the value has changed
+	if force or value != __last_value:
 		__last_value = value
+		emit_signal("value_changed", value)
+		
+		minus.set_disabled(false)
+		plus.set_disabled(false)
+		if value < min_value:
+			value = min_value
+		if value == min_value:
+			minus.set_disabled(true)
+			
+		if value > max_value:
+			value = max_value
+		if value == max_value:
+			plus.set_disabled(true)
 
 ## Connected Signals
 func _on_MinusButton_button_up():
 	value -= step
-	_updateAvailability()
+	call_deferred("_updateAvailability")
 
 func _on_PlusButton_button_up():
 	value += step
-	_updateAvailability()
+	call_deferred("_updateAvailability")

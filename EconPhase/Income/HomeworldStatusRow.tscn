@@ -3,24 +3,26 @@
 [ext_resource path="res://Utility/ScrollBarRow.tscn" type="PackedScene" id=1]
 [ext_resource path="res://EconPhase/Income/HomeworldStatusRow.gd" type="Script" id=2]
 
-[node name="HomeworldStatusRow" instance=ExtResource( 1 )]
+[node name="HomeworldStatusRow" index="0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="CurrentValue" parent="." index="0"]
 margin_left = 0.0
-margin_right = 40.0
+margin_right = 86.0
+rect_min_size = Vector2( 86, 0 )
 text = "20 CP "
 
 [node name="ScrollBar" parent="." index="1"]
-margin_left = 44.0
-margin_right = 144.0
-max_value = 20.0
+margin_left = 90.0
+margin_right = 190.0
+max_value = 25.0
 step = 5.0
-value = 20.0
+page = 5.0
+value = 15.0
 
 [node name="UpDownButton" parent="." index="2"]
-margin_left = 148.0
-margin_right = 211.0
+margin_left = 194.0
+margin_right = 257.0
 value = 20
 max_value = 20
 step = 5

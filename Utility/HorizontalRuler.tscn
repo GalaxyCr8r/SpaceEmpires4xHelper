@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="HorizontalRuler" type="Panel"]
+margin_top = 42.0
+margin_right = 211.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 8 )
+size_flags_horizontal = 3
+
