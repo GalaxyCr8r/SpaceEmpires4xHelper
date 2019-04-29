@@ -1,13 +1,15 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://EconPhase/Expense/ExpenseContents.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/Terminus.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Utility/ScrollBarRow.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Utility/HorizontalRuler.tscn" type="PackedScene" id=4]
 [ext_resource path="res://EconPhase/Expense/MaintRow.tscn" type="PackedScene" id=5]
-[ext_resource path="res://EconPhase/Expense/MiscCost.tscn" type="PackedScene" id=6]
-[ext_resource path="res://EconPhase/Expense/ResearchCost.tscn" type="PackedScene" id=7]
-[ext_resource path="res://EconPhase/Expense/BuildCost.tscn" type="PackedScene" id=8]
+[ext_resource path="res://EconPhase/Expense/ResearchTab.tscn" type="PackedScene" id=6]
+[ext_resource path="res://EconPhase/Expense/BuildTab.tscn" type="PackedScene" id=7]
+[ext_resource path="res://EconPhase/Expense/MiscCost.tscn" type="PackedScene" id=8]
+[ext_resource path="res://EconPhase/Expense/ResearchCost.tscn" type="PackedScene" id=9]
+[ext_resource path="res://EconPhase/Expense/BuildCost.tscn" type="PackedScene" id=10]
 
 [node name="ExpenseContents" type="MarginContainer"]
 anchor_right = 1.0
@@ -67,23 +69,10 @@ margin_bottom = 434.0
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 2 )
 
-[node name="Research" type="Tabs" parent="VBoxContainer/TabContainer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
+[node name="Research" parent="VBoxContainer/TabContainer" instance=ExtResource( 6 )]
 
-[node name="Build" type="Tabs" parent="VBoxContainer/TabContainer"]
+[node name="Build" parent="VBoxContainer/TabContainer" instance=ExtResource( 7 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-size_flags_horizontal = 3
 
 [node name="Summary" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 438.0
@@ -92,29 +81,34 @@ margin_bottom = 470.0
 custom_constants/separation = 24
 alignment = 1
 
-[node name="MiscCost" parent="VBoxContainer/Summary" instance=ExtResource( 6 )]
+[node name="MiscCost" parent="VBoxContainer/Summary" instance=ExtResource( 8 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 39.0
 margin_right = 95.0
 margin_bottom = 32.0
 title = "Misc."
+value = 0
 
-[node name="ResearchCost" parent="VBoxContainer/Summary" instance=ExtResource( 7 )]
+[node name="ResearchCost" parent="VBoxContainer/Summary" instance=ExtResource( 9 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 119.0
 margin_right = 174.0
 margin_bottom = 32.0
 title = "Res."
+value = 0
 
-[node name="BuildCost" parent="VBoxContainer/Summary" instance=ExtResource( 8 )]
+[node name="BuildCost" parent="VBoxContainer/Summary" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 198.0
 margin_right = 256.0
 margin_bottom = 32.0
 title = "Build"
+value = 0
 
 [connection signal="value_changed" from="VBoxContainer/TurnOrderBid/ScrollBarRow" to="." method="_on_TurnOrderBid_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/VBoxContainer/MaintRow" to="." method="_on_Maintance_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/TabContainer/Research" to="." method="_on_Research_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/TabContainer/Build" to="." method="_on_Build_value_changed"]

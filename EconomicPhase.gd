@@ -18,3 +18,7 @@ func _ready():
 func _updateRemainingCp(val):
 	remainingCp.text = "Current CP: "
 	remainingCp.text += str(Global.remainingCp)
+	if Global.remainingCp >= 0:
+		remainingCp.add_color_override("font_color", Color(1,1,1))
+	else:
+		remainingCp.add_color_override("font_color", Color(1,0,0))
