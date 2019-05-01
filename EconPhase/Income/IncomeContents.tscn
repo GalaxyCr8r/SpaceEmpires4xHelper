@@ -34,8 +34,9 @@ scroll_horizontal_enabled = false
 
 [node name="IncomeSources" type="VBoxContainer" parent="VBoxContainer/ScrollableIncomeSources"]
 margin_right = 304.0
-margin_bottom = 218.0
+margin_bottom = 349.0
 size_flags_horizontal = 3
+custom_constants/separation = 8
 
 [node name="Homeworld" type="VBoxContainer" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources"]
 margin_right = 304.0
@@ -53,13 +54,16 @@ margin_right = 304.0
 value = 20
 
 [node name="HorizontalRuler" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources" instance=ExtResource( 4 )]
+margin_top = 46.0
 margin_right = 304.0
+margin_bottom = 54.0
 
 [node name="Colonies" type="VBoxContainer" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources"]
-margin_top = 54.0
+margin_top = 62.0
 margin_right = 304.0
-margin_bottom = 140.0
+margin_bottom = 217.0
 size_flags_vertical = 3
+custom_constants/separation = 24
 
 [node name="Title" type="Label" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources/Colonies"]
 margin_right = 304.0
@@ -69,29 +73,38 @@ text = "Colony Income:"
 align = 1
 
 [node name="1CpColonyRow" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources/Colonies" instance=ExtResource( 5 )]
+margin_left = 0.0
+margin_top = 38.0
 margin_right = 304.0
+margin_bottom = 61.0
+alignment = 0
 
 [node name="3CpColonyRow" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources/Colonies" instance=ExtResource( 6 )]
-margin_top = 42.0
+margin_left = 0.0
+margin_top = 85.0
 margin_right = 304.0
-margin_bottom = 62.0
+margin_bottom = 108.0
+alignment = 0
 
 [node name="5CpColonyRow" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources/Colonies" instance=ExtResource( 7 )]
-margin_top = 66.0
+margin_left = 0.0
+margin_top = 132.0
 margin_right = 304.0
-margin_bottom = 86.0
+margin_bottom = 155.0
+alignment = 0
 
 [node name="HorizontalRuler2" type="Panel" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources"]
-margin_top = 144.0
+margin_top = 225.0
 margin_right = 304.0
-margin_bottom = 152.0
+margin_bottom = 233.0
 rect_min_size = Vector2( 0, 8 )
 
 [node name="Minerals" type="VBoxContainer" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources"]
-margin_top = 156.0
+margin_top = 241.0
 margin_right = 304.0
-margin_bottom = 218.0
+margin_bottom = 349.0
 size_flags_vertical = 3
+custom_constants/separation = 24
 
 [node name="Label" type="Label" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources/Minerals"]
 margin_right = 304.0
@@ -101,12 +114,18 @@ text = "Minerals Collected:"
 align = 1
 
 [node name="5CpMineral" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources/Minerals" instance=ExtResource( 8 )]
+margin_left = 0.0
+margin_top = 38.0
 margin_right = 304.0
+margin_bottom = 61.0
+alignment = 0
 
 [node name="10CpMineral" parent="VBoxContainer/ScrollableIncomeSources/IncomeSources/Minerals" instance=ExtResource( 9 )]
-margin_top = 42.0
+margin_left = 0.0
+margin_top = 85.0
 margin_right = 304.0
-margin_bottom = 62.0
+margin_bottom = 108.0
+alignment = 0
 
 [node name="Misc" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 438.0
@@ -122,7 +141,6 @@ margin_left = 10.0
 margin_right = 149.0
 margin_bottom = 32.0
 title = "Carry-Over"
-value = 0
 
 [node name="SubTotal" parent="VBoxContainer/Misc" instance=ExtResource( 10 )]
 anchor_right = 0.0
@@ -131,7 +149,6 @@ margin_left = 173.0
 margin_right = 293.0
 margin_bottom = 32.0
 title = "Sub-Total"
-value = 0
 
 [connection signal="value_changed" from="VBoxContainer/ScrollableIncomeSources/IncomeSources/Homeworld/HomeworldStatusRow" to="." method="_on_HomeworldStatusRow_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/ScrollableIncomeSources/IncomeSources/Colonies/1CpColonyRow" to="." method="_on_1CpColonyRow_value_changed"]

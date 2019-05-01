@@ -3,40 +3,107 @@ extends Node
 ## Provided Signals
 signal currentIncome_changed()
 signal currentExpenses_changed()
+signal currentEconPhaseValues_changed()
 
 ## Exported vars
-export var STARTING_SCOUTS := 3
+#export var STARTING_SCOUTS := 3
 
 ## Internal Vars
-var currentIncomeCp := 0 setget setCurrentCp, getCurrentCp
-var currentExpenses := 0 setget setExpenses, getExpenses
-var remainingCp := 0
+enum ShipType {SC, DD, CA, BC, BB, DN, CO, BS, MR, SY}
+enum Tech {
+	ShipSize, 
+	Attack, 
+	Defense, 
+	Tactics, 
+	Move, 
+	ShipYards, 
+	Terraforming, 
+	Exploration
+}
 
-var technology = {}
-var lastTurnCarryOver := 0
-var lastTurnOrderBid := 0
-var lastTurnMaintance := 0
-onready var currentMaintance := STARTING_SCOUTS
+## Current Econ Phase
+var colonyIncome := 20 setget setColonyIncome
+var mineralIncome := 0 setget setMineralIncome
+
+var turnOrderBid := 0 setget setTurnOrderBid
+var newTech := {}
+var newShips := {}
+var currentIncomeCp := 0 setget ,getCurrentCp
+var currentExpenses := 0 setget ,getExpenses
+
+## Last Econ Phase
+var researchedTech := {}
+var constructedShips := {}
+var lastTurnCarryOver := 3
+var lastTurnMaintance := 7
+onready var currentMaintance := 0 setget ,getCurrentMaintance
 
 ## Methods
 func _ready():
-	pass # Replace with function body.
+	resetConstructedShips()
+	resetTech()
 
-func _updateRemainingCp():
-	remainingCp = currentIncomeCp - currentExpenses
+func resetEconPhase():
+	colonyIncome = 20
+	mineralIncome = 0
+	
+	turnOrderBid = 0
+	newTech = {}
+	newShips = {}
 
-func setCurrentCp(new_cp:int):
-	currentIncomeCp = new_cp
-	_updateRemainingCp()
+## Empire-wide
+func resetConstructedShips():
+	constructedShips = {ShipType.SC: 3}
+
+func resetTech():
+	researchedTech = {Tech.ShipSize: 1, Tech.Move: 1, Tech.ShipYards: 1}
+
+## Income
+func setColonyIncome(new_cp:int):
+	colonyIncome = new_cp
+	currentIncomeCp = lastTurnCarryOver + colonyIncome + mineralIncome
+	emit_signal("currentIncome_changed", currentIncomeCp)
+
+func setMineralIncome(new_cp:int):
+	mineralIncome = new_cp
+	currentIncomeCp = lastTurnCarryOver + colonyIncome + mineralIncome
 	emit_signal("currentIncome_changed", currentIncomeCp)
 	
 func getCurrentCp() -> int:
-	return currentIncomeCp
+	return lastTurnCarryOver + colonyIncome + mineralIncome
 
-func setExpenses(new_expenses:int):
-	currentExpenses = new_expenses
-	_updateRemainingCp()
+## Expenses
+func getRemainingCp() -> int:
+	return currentIncomeCp - currentExpenses
+
+func getCurrentMaintance() -> int:
+	var maint := 0
+	for shpTyp in constructedShips:
+		print("Constructed ship type found: ", shpTyp, " from: ", constructedShips[shpTyp])
+		maint += getShipTypeMaintance(shpTyp) * constructedShips[shpTyp]
+	for shpTyp in newShips:
+		print("New ship type found: ", shpTyp, " from: ", newShips[shpTyp])
+		maint += getShipTypeMaintance(shpTyp) * newShips[shpTyp]
+	return maint
+
+func setTurnOrderBid(new_bid:int):
+	turnOrderBid = new_bid
+	currentExpenses = getCurrentMaintance() + turnOrderBid
 	emit_signal("currentExpenses_changed", currentExpenses)
 
 func getExpenses() -> int:
 	return currentExpenses
+
+## Spending
+
+func getShipTypeMaintance(shipType) -> int:
+	match shipType:
+		ShipType.SC, ShipType.DD:
+			return 1
+		ShipType.CA, ShipType.BC:
+			return 2
+		ShipType.BB, ShipType.DN:
+			return 3
+		_:
+			# All other ships/bases have zero maint.
+			return 0

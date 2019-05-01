@@ -1,7 +1,7 @@
 extends MarginContainer
 
 ## Provided Signals
-signal value_changed(updated_subTotal)
+signal incomeTotal_changed(new_value)
 
 ## Exported vars
 
@@ -17,23 +17,20 @@ var _5ColonyCp:int = 0
 var _5MineralCp:int = 0
 var _10MineralCp:int = 0
 
-var __ready = false
-
 ## Methods
 func _ready():
-	__ready = true
-	emit_signal("value_changed", subTotalCp)
+	emit_signal("incomeTotal_changed", subTotalCp)
 
 func _updateSubTotal():
 	subTotalCp = _hwCp + Global.lastTurnCarryOver
 	subTotalCp += _1ColonyCp + _3ColonyCp + _5ColonyCp
 	subTotalCp += _5MineralCp + _10MineralCp
-	Global.currentIncomeCp = subTotalCp
-	emit_signal("value_changed", subTotalCp)
+	Global.colonyIncome = _hwCp + _1ColonyCp + _3ColonyCp + _5ColonyCp
+	Global.mineralIncome = _5MineralCp + _10MineralCp
+	emit_signal("incomeTotal_changed", subTotalCp)
 	
-	if __ready:
-		carryOverAmount.value = Global.lastTurnCarryOver
-		subTotalAmount.value = subTotalCp
+	carryOverAmount.value = Global.lastTurnCarryOver
+	subTotalAmount.value = subTotalCp
 
 ## Connected Signals
 func _on_HomeworldStatusRow_value_changed(new_value):

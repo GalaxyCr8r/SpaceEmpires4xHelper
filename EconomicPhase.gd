@@ -7,7 +7,7 @@ extends VBoxContainer
 #export var value : int = 0 setget set_value, get_value
 
 ## Internal Vars
-onready var remainingCp : Label = $VBoxContainer/HBoxContainer/RemainingCp
+onready var remainingCpLabel : Label = $VBoxContainer/HBoxContainer/RemainingCp
 
 ## Methods
 func _ready():
@@ -16,9 +16,10 @@ func _ready():
 
 ## Connected Signals
 func _updateRemainingCp(val):
-	remainingCp.text = "Current CP: "
-	remainingCp.text += str(Global.remainingCp)
-	if Global.remainingCp >= 0:
-		remainingCp.add_color_override("font_color", Color(1,1,1))
+	var remainingCp := Global.getRemainingCp()
+	remainingCpLabel.text = "Current CP: "
+	remainingCpLabel.text += str(remainingCp)
+	if remainingCp >= 0:
+		remainingCpLabel.add_color_override("font_color", Color(1,1,1))
 	else:
-		remainingCp.add_color_override("font_color", Color(1,0,0))
+		remainingCpLabel.add_color_override("font_color", Color(1,0,0))
