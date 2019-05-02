@@ -5,6 +5,8 @@ signal currentIncome_changed()
 signal currentExpenses_changed()
 
 signal existingShips_changed()
+signal newShips_changed()
+signal newTech_changed()
 
 ## Exported vars
 #export var STARTING_SCOUTS := 3
@@ -53,6 +55,7 @@ func resetEconPhase():
 	turnOrderBid = 0
 	newTech = {}
 	newShips = {}
+	#emit_signal("newShips_changed")
 
 func goToPlayPhase():
 	# Add new ships
@@ -69,11 +72,19 @@ func goToEconPhase():
 ## Empire-wide
 func resetExistingShips():
 	existingShips = {ShipType.SC: 3, ShipType.CO: 3, ShipType.SY: 4, ShipType.MR: 1}
+	emit_signal("existingShips_changed")
 
 func removeAnExistingShip(shipType):
-	if Global.existingShips[shipType] > 0:
-		Global.existingShips[shipType] -= 1
+	if existingShips[shipType] > 0:
+		existingShips[shipType] -= 1
 		emit_signal("existingShips_changed")
+
+func setNewShipAmount(shipType, amount):
+	if amount < 0:
+		return false
+	newShips[shipType] = amount
+	emit_signal("newShips_changed")
+	updateExpenses()
 
 func resetTech():
 	researchedTech = {Tech.ShipSize: 1, Tech.Move: 1, Tech.ShipYard: 1}
@@ -114,7 +125,13 @@ func getNewMaintance() -> int:
 
 func setTurnOrderBid(new_bid:int):
 	turnOrderBid = new_bid
-	currentExpenses = getExistingMaintance() + turnOrderBid
+	updateExpenses()
+
+func updateExpenses():
+	currentExpenses = getExistingMaintance()
+	currentExpenses += getCostOfNewShips()
+	currentExpenses += getCostOfNewTech()
+	currentExpenses += turnOrderBid
 	emit_signal("currentExpenses_changed", currentExpenses)
 
 ## Spending
@@ -198,9 +215,9 @@ func getTechMaxLevel(techType) -> int:
 			return 0
 
 func currentResearchLevel(techType) -> int:
-	return researchedTech.get(techType) if \
-		researchedTech.get(techType) >= newTech.get(techType) else \
-		newTech.get(techType)
+	return researchedTech.get(techType, 0) if \
+		researchedTech.get(techType, 0) >= newTech.get(techType, 0) else \
+		newTech.get(techType, 0)
 
 func getCostOfNewShips() -> int:
 	var cost := 0

@@ -9,6 +9,7 @@ export var value : int = 0 setget set_value, get_value
 export var min_value : int = 0
 export var max_value : int = 2
 export var step : int = 1
+export var disabled : bool = false setget set_disabled
 
 ## Internal Vars
 onready var minus : Button = $MinusButton
@@ -26,6 +27,10 @@ func set_value(new_value : int):
 func get_value() -> int:
 	return value
 
+func set_disabled(new_setting):
+	disabled = new_setting
+	call_deferred("_updateAvailability")
+
 func _updateAvailability(force:bool = false):
 	## Had to add this because this is STILL getting called before things are ready when going from Play to Econ!
 	if minus == null:
@@ -37,8 +42,12 @@ func _updateAvailability(force:bool = false):
 		__last_value = value
 		emit_signal("value_changed", value)
 		
-		minus.set_disabled(false)
-		plus.set_disabled(false)
+		minus.disabled = disabled
+		plus.disabled = disabled
+		
+		if disabled:
+			return
+		
 		if value < min_value:
 			value = min_value
 		if value == min_value:
