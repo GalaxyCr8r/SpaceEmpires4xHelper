@@ -101,7 +101,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 136.0
 margin_bottom = 32.0
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 title = "Technology"
 
 [node name="ShipSpending" parent="VBoxContainer/Expenses" instance=ExtResource( 3 )]
@@ -110,6 +110,7 @@ anchor_bottom = 0.0
 margin_left = 144.0
 margin_right = 292.0
 margin_bottom = 32.0
+size_flags_horizontal = 3
 title = "Space Ships"
 
 [node name="HorizontalRuler3" parent="VBoxContainer" instance=ExtResource( 4 )]
@@ -145,7 +146,7 @@ margin_right = 292.0
 margin_bottom = 401.0
 alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer/DoneWithEconPhase"]
+[node name="DoneButton" type="Button" parent="VBoxContainer/DoneWithEconPhase"]
 margin_left = 71.0
 margin_right = 221.0
 margin_bottom = 29.0
@@ -153,3 +154,4 @@ rect_min_size = Vector2( 150, 0 )
 custom_fonts/font = ExtResource( 2 )
 text = "Done"
 
+[connection signal="button_up" from="VBoxContainer/DoneWithEconPhase/DoneButton" to="." method="_on_Done_button_up"]

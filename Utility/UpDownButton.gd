@@ -27,6 +27,10 @@ func get_value() -> int:
 	return value
 
 func _updateAvailability(force:bool = false):
+	if minus == null:
+		call_deferred("_updateAvailability", force)
+		return
+	
 	## If we want to force the change, or if the value has changed
 	if force or value != __last_value:
 		__last_value = value

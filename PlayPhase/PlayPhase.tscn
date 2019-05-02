@@ -1,0 +1,110 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://PlayPhase/PlayPhase.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/Terminus.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Utility/TitleAmount.tscn" type="PackedScene" id=3]
+[ext_resource path="res://PlayPhase/CurrentMaintance.gd" type="Script" id=4]
+[ext_resource path="res://Utility/HorizontalRuler.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Fonts/IndepModern.tres" type="DynamicFont" id=6]
+
+[node name="PlayPhase" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 320.0
+margin_bottom = 480.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 320.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.745098, 0.854902, 1, 1 )
+text = "Play Phase"
+align = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 320.0
+margin_bottom = 480.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 313.0
+margin_bottom = 455.0
+custom_constants/separation = 4
+
+[node name="TurnOrderBid" parent="VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 306.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+title = "Turn Order Bid"
+postfix = " CP"
+
+[node name="CurMaint" parent="VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 36.0
+margin_right = 306.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+script = ExtResource( 4 )
+title = "Maintance"
+postfix = " CP"
+
+[node name="HorizontalRuler" parent="VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource( 5 )]
+margin_top = 72.0
+margin_right = 306.0
+margin_bottom = 80.0
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 84.0
+margin_right = 306.0
+margin_bottom = 403.0
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 2 )
+
+[node name="Ships" type="Tabs" parent="VBoxContainer/PanelContainer/VBoxContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Tech" type="Tabs" parent="VBoxContainer/PanelContainer/VBoxContainer/TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="HorizontalRuler2" parent="VBoxContainer/PanelContainer/VBoxContainer" instance=ExtResource( 5 )]
+margin_top = 407.0
+margin_right = 306.0
+margin_bottom = 415.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 419.0
+margin_right = 306.0
+margin_bottom = 448.0
+size_flags_horizontal = 7
+
+[node name="EconPhaseButton" type="Button" parent="VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_right = 306.0
+margin_bottom = 29.0
+size_flags_horizontal = 7
+custom_fonts/font = ExtResource( 6 )
+text = "Go to Economy Phase"
+
+[connection signal="button_up" from="VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/EconPhaseButton" to="." method="_on_EconPhaseButton_button_up"]

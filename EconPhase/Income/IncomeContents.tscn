@@ -131,23 +131,23 @@ alignment = 0
 margin_top = 438.0
 margin_right = 304.0
 margin_bottom = 470.0
-custom_constants/separation = 24
 alignment = 1
 
 [node name="CarryOver" parent="VBoxContainer/Misc" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 10.0
-margin_right = 149.0
+margin_right = 150.0
 margin_bottom = 32.0
+size_flags_horizontal = 3
 title = "Carry-Over"
 
 [node name="SubTotal" parent="VBoxContainer/Misc" instance=ExtResource( 10 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 173.0
-margin_right = 293.0
+margin_left = 154.0
+margin_right = 304.0
 margin_bottom = 32.0
+size_flags_horizontal = 3
 title = "Sub-Total"
 
 [connection signal="value_changed" from="VBoxContainer/ScrollableIncomeSources/IncomeSources/Homeworld/HomeworldStatusRow" to="." method="_on_HomeworldStatusRow_value_changed"]

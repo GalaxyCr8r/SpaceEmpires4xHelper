@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://EconomicPhase.gd" type="Script" id=1]
+[ext_resource path="res://EconPhase/EconomicPhase.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/Terminus.tres" type="DynamicFont" id=2]
 [ext_resource path="res://TurnMenus.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Fonts/IndepModern.tres" type="DynamicFont" id=4]

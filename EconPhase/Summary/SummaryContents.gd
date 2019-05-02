@@ -28,10 +28,20 @@ func _updateAny(amt):
 func _updateAll():
 	colonyCp.value = Global.colonyIncome
 	mineralCp.value = Global.mineralIncome
-	maintance.value = Global.getCurrentMaintance()
+	maintance.value = Global.getExistingMaintance()
 	turnOrder.value = Global.turnOrderBid
-	techSpending.value = 0 #Global.getTechSpending()
-	shipSpending.value = 0 #GLobal.getShipSpending()
+	techSpending.value = Global.getCostOfNewTech()
+	shipSpending.value = Global.getCostOfNewShips()
 	remainingCp.value = Global.getRemainingCp()
+	
+	## TODO make an onready var
+	$VBoxContainer/DoneWithEconPhase/DoneButton.disabled = Global.getRemainingCp() < 0
 
 ## Connected Signals
+func _on_Done_button_up():
+	if Global.getRemainingCp() >= 0:
+		call_deferred("_changeScene")
+
+func _changeScene():
+	get_tree().change_scene("res://PlayPhase/PlayPhase.tscn")
+	Global.goToPlayPhase()
