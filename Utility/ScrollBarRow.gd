@@ -36,6 +36,7 @@ func set_max_value(new_max:int):
 	scrollBar.max_value = new_max
 
 func _updateAll():
+	## Had to add this because this is STILL getting called before things are ready when going from Play to Econ!
 	if upDown == null:
 		call_deferred("_updateAll")
 		return

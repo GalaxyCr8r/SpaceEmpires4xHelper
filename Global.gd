@@ -70,6 +70,11 @@ func goToEconPhase():
 func resetExistingShips():
 	existingShips = {ShipType.SC: 3, ShipType.CO: 3, ShipType.SY: 4, ShipType.MR: 1}
 
+func removeAnExistingShip(shipType):
+	if Global.existingShips[shipType] > 0:
+		Global.existingShips[shipType] -= 1
+		emit_signal("existingShips_changed")
+
 func resetTech():
 	researchedTech = {Tech.ShipSize: 1, Tech.Move: 1, Tech.ShipYard: 1}
 
@@ -155,6 +160,28 @@ func getTechCost(techType, level) -> int:
 		_:
 			print("WARNING! Tech type >", techType, "< doesn't exist!")
 			return 0
+
+func getTechName(techType) -> String:
+	match techType:
+		Tech.ShipSize:
+			return "Ship Size"
+		Tech.Defense:
+			return "Defense"
+		Tech.Attack:
+			return "Attack"
+		Tech.Tactics:
+			return "Tactics"
+		Tech.Move:
+			return "Movement"
+		Tech.Terraform:
+			return "Terraform"
+		Tech.Exploration:
+			return "Exploration"
+		Tech.ShipYard:
+			return "Ship Yards"
+		_:
+			print("WARNING! Tech type >", techType, "< doesn't exist!")
+			return "NULL TYPE"
 
 func getTechMaxLevel(techType) -> int:
 	match techType:

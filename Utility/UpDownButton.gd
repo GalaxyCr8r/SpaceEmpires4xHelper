@@ -27,6 +27,7 @@ func get_value() -> int:
 	return value
 
 func _updateAvailability(force:bool = false):
+	## Had to add this because this is STILL getting called before things are ready when going from Play to Econ!
 	if minus == null:
 		call_deferred("_updateAvailability", force)
 		return

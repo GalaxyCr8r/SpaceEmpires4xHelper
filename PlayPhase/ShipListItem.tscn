@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://PlayPhase/ShipListItem.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/Terminus.tres" type="DynamicFont" id=2]
+
+[node name="ShipListItem" type="HBoxContainer"]
+anchor_right = 1.0
+margin_left = 4.0
+margin_right = -4.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+
+[node name="InfoButton" type="Button" parent="."]
+margin_right = 19.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.745098, 0.854902, 1, 1 )
+text = "i"
+
+[node name="Name" type="Label" parent="."]
+margin_left = 23.0
+margin_right = 212.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 5
+custom_fonts/font = ExtResource( 2 )
+text = "ShipNameHere"
+valign = 1
+
+[node name="Amount" type="Label" parent="."]
+margin_left = 216.0
+margin_right = 257.0
+margin_bottom = 20.0
+size_flags_vertical = 7
+custom_fonts/font = ExtResource( 2 )
+text = "x12"
+align = 2
+valign = 1
+
+[node name="KillButton" type="Button" parent="."]
+margin_left = 261.0
+margin_right = 312.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 1, 0.745098, 0.745098, 1 )
+text = "Kill"
+
+[connection signal="pressed" from="InfoButton" to="." method="_on_InfoButton_pressed"]
+[connection signal="pressed" from="KillButton" to="." method="_on_KillButton_pressed"]
