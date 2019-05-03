@@ -10,7 +10,6 @@ signal newShips_changed()
 signal newTech_changed()
 
 ## Exported vars
-#export var STARTING_SCOUTS := 3
 
 ## Internal Vars
 enum ShipType {CO, BS, MR, SY, DC, SC, DD, CA, BC, BB, DN}
@@ -57,7 +56,6 @@ func resetEconPhase():
 	turnOrderBid = 0
 	newTech = {}
 	newShips = {}
-	#emit_signal("newShips_changed")
 
 func goToPlayPhase():
 	# Add new ships

@@ -1,7 +1,6 @@
 extends VBoxContainer
 
 ## Provided Signals
-#signal value_changed(new_value)
 
 ## Exported vars
 export var shipListItem : PackedScene

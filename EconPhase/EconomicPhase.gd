@@ -1,10 +1,8 @@
 extends VBoxContainer
 
 ## Provided Signals
-#signal value_changed(new_value)
 
 ## Exported vars
-#export var value : int = 0 setget set_value, get_value
 
 ## Internal Vars
 onready var remainingCpLabel : Label = $VBoxContainer/HBoxContainer/RemainingCp

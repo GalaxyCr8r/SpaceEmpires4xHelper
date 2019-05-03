@@ -13,7 +13,3 @@ func _ready():
 		var item = listItem.instance()
 		techList.add_child(item)
 		item.setItem(techType)
-	Global.connect("newTech_changed", self, "_update")
-
-func _update():
-	pass # TODO Update total research cost.

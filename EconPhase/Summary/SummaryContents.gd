@@ -1,11 +1,9 @@
 extends MarginContainer
-## Luckily this script is just to update the various labels and continue the app.
+# Luckily this script is just to update the various labels and continue the app.
 
 ## Provided Signals
-#signal value_changed(new_value)
 
 ## Exported vars
-#export var value : int = 0 setget set_value, get_value
 
 ## Internal Vars
 onready var colonyCp : TitleAmount = $VBoxContainer/ColonyCp
@@ -34,7 +32,7 @@ func _updateAll():
 	shipSpending.value = Global.getCostOfNewShips()
 	remainingCp.value = Global.getRemainingCp()
 	
-	## TODO make an onready var
+	## TODO make an onready var?
 	$VBoxContainer/DoneWithEconPhase/DoneButton.disabled = Global.getRemainingCp() < 0
 
 ## Connected Signals

@@ -1,10 +1,9 @@
 extends MarginContainer
 
 ## Provided Signals
-signal info_pressed(shipType)
+signal info_pressed(shipType) ## See #6
 
 ## Exported vars
-#export var value : int = 0 setget set_value, get_value
 
 ## Internal Vars
 onready var infoButton : Button = $HBoxContainer/InfoButton
@@ -19,7 +18,6 @@ var amount := 0
 
 ## Methods
 func _ready():
-	#Global.connect("newTech_changed", self, "_updateTechReady")
 	Global.connect("currentIncome_changed", self, "_updateColours")
 	Global.connect("currentExpenses_changed", self, "_updateColours")
 

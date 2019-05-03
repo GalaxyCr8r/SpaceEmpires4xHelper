@@ -32,7 +32,8 @@ func set_disabled(new_setting):
 	call_deferred("_updateAvailability", true)
 
 func _updateAvailability(force:bool = false):
-	## Had to add this because this is STILL getting called before things are ready when going from Play to Econ!
+	## Had to add this because this is STILL getting called before
+	## things are ready when going from Play to Econ! See #2
 	if minus == null:
 		call_deferred("_updateAvailability", force)
 		return
@@ -55,6 +56,7 @@ func _updateAvailability(force:bool = false):
 		if value == max_value:
 			plus.set_disabled(true)
 	
+	## Only update the value if needed
 	if value != __last_value:
 		__last_value = value
 		emit_signal("value_changed", value)

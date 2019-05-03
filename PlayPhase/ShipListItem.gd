@@ -2,7 +2,7 @@ extends HBoxContainer
 
 ## Provided Signals
 signal kill_pressed(shipType)
-signal info_pressed(shipType)
+signal info_pressed(shipType) ## See #6
 
 ## Exported vars
 export var shipName : String = "ShipNameHere"

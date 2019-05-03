@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 ## Provided Signals
-signal info_pressed(techType)
+signal info_pressed(techType) ## See #6
 
 ## Exported vars
 export var techName : String = "TechNameHere"

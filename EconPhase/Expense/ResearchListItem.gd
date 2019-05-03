@@ -1,10 +1,9 @@
 extends MarginContainer
 
 ## Provided Signals
-signal info_pressed(shipType)
+signal info_pressed(shipType) ## See #6
 
 ## Exported vars
-#export var value : int = 0 setget set_value, get_value
 
 ## Internal Vars
 onready var infoButton : Button = $HBoxContainer/InfoButton
