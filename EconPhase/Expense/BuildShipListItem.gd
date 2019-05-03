@@ -15,7 +15,7 @@ onready var upDown : UpDownButton = $HBoxContainer/UpDownButton
 onready var costLabel : Label = $HBoxContainer/Cost
 
 var shipType
-var amount
+var amount := 0
 
 ## Methods
 func _ready():
@@ -27,13 +27,18 @@ func setItem(type):
 	shipType = type
 	typeLabel.text = Global.getShipTypeName(shipType)
 	costLabel.text = str(Global.getShipTypeCost(shipType)) + " CP"
-	_update()
-	#Global.connect("")
+	_updateAmounts()
+	_updateColours()
 
 ## Connected Signals
 func _updateColours(acceptAny = 0):
 	var disabled : bool = !Global.canBuildShip(shipType)
 	upDown.disabled = disabled
+	if amount > 0 and disabled:
+		amount = 0
+		Global.setNewShipAmount(shipType, amount)
+		_updateAmounts()
+	
 	typeLabel.add_color_override("font_color", Color(1,1,1))
 	costLabel.add_color_override("font_color", Color(1,1,1))
 	if disabled:
@@ -43,10 +48,8 @@ func _updateColours(acceptAny = 0):
 		if Global.getRemainingCp() < Global.getShipTypeCost(shipType):
 			costLabel.add_color_override("font_color", Color(1,0,0))	
 
-func _update():
+func _updateAmounts():
 	currentAmount.text = str(Global.existingShips.get(shipType, 0))
-	
-	_updateColours()
 	
 	var new : int = Global.newShips.get(shipType, 0)
 	if new > 0:
@@ -58,7 +61,8 @@ func _update():
 func _on_UpDownButton_value_changed(new_value):
 	amount = new_value
 	Global.setNewShipAmount(shipType, amount)
-	_update()
+	_updateAmounts()
+	_updateColours()
 
 func _updateTechReady():
 	_updateColours()

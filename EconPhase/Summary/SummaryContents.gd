@@ -43,5 +43,5 @@ func _on_Done_button_up():
 		call_deferred("_changeScene")
 
 func _changeScene():
-	get_tree().change_scene("res://PlayPhase/PlayPhase.tscn")
 	Global.goToPlayPhase()
+	get_tree().change_scene("res://PlayPhase/PlayPhase.tscn")

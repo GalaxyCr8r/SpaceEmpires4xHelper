@@ -45,6 +45,7 @@ margin_bottom = 434.0
 size_flags_horizontal = 3
 
 [node name="BuildCost" parent="MarginContainer/VBoxContainer/CostAndMaint" instance=ExtResource( 3 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_right = 176.0
@@ -55,9 +56,8 @@ title = "Build Cost"
 [node name="IncMaint" parent="MarginContainer/VBoxContainer/CostAndMaint" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 180.0
 margin_right = 356.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
-title = "Inc. Maint."
+title = "Maintance Increase"
 

@@ -27,17 +27,18 @@ margin_bottom = 434.0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 margin_right = 356.0
-margin_bottom = 398.0
+margin_bottom = 434.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TechList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 margin_right = 356.0
-margin_bottom = 398.0
+margin_bottom = 434.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="TitleAmount" parent="MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 402.0

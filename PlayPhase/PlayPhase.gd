@@ -49,5 +49,5 @@ func _on_EconPhaseButton_button_up():
 	call_deferred("_goToEconPhase")
 
 func _goToEconPhase():
-	get_tree().change_scene("res://EconPhase/EconomicPhase.tscn")
 	Global.goToEconPhase()
+	get_tree().change_scene("res://EconPhase/EconomicPhase.tscn")

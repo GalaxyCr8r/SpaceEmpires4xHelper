@@ -11,6 +11,9 @@ export var redNegative : bool = true
 onready var titleLabel : Label = $Title
 onready var amount : Label = $Amount
 
+func _ready():
+	_updateLabel()
+
 func _updateLabel():
 	if !amount:
 		return
