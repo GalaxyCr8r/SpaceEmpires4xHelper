@@ -8,6 +8,11 @@ signal incomeTotal_changed(new_value)
 ## Internal Vars
 onready var carryOverAmount : TitleAmount = $VBoxContainer/Misc/CarryOver
 onready var subTotalAmount : TitleAmount = $VBoxContainer/Misc/SubTotal
+onready var spaceWrecksCheckButton : CheckBox = $VBoxContainer/ScrollableIncomeSources/IncomeSources/VBoxContainer/SpaceWrecks/CheckButton
+onready var spaceWrecksAmount : Label = $VBoxContainer/ScrollableIncomeSources/IncomeSources/VBoxContainer/SpaceWrecks/Amount
+onready var spaceWrecksButton : Button = $VBoxContainer/ScrollableIncomeSources/IncomeSources/VBoxContainer/SpaceWrecks/Button
+onready var collectedWreck : Label = $VBoxContainer/ScrollableIncomeSources/IncomeSources/VBoxContainer/Collected
+
 var subTotalCp := 0
 
 var _hwCp:int = 0
@@ -20,6 +25,7 @@ var _10MineralCp:int = 0
 ## Methods
 func _ready():
 	emit_signal("incomeTotal_changed", subTotalCp)
+	collectedWreck.text = ""
 
 func _updateSubTotal():
 	subTotalCp = _hwCp + Global.lastTurnCarryOver
@@ -56,3 +62,18 @@ func _on_5CpMineral_value_changed(new_value):
 func _on_10CpMineral_value_changed(new_value):
 	_10MineralCp = new_value * 10
 	call_deferred("_updateSubTotal")
+
+# Sphess wrecks
+var amountOfSpaceWrecks := 0
+func _on_CheckButton_toggled(button_pressed):
+	spaceWrecksButton.disabled = !button_pressed
+
+func _on_Button_pressed():
+	spaceWrecksCheckButton.pressed = false
+	spaceWrecksButton.disabled = true
+	amountOfSpaceWrecks += 1
+	spaceWrecksAmount.text = str(amountOfSpaceWrecks)
+	
+	var spaceWreckType = Global.collectSpaceWreck()
+	collectedWreck.text = "Collected: " + Global.getTechName(spaceWreckType) +\
+		" Level " + str(Global.researchedTech[spaceWreckType])

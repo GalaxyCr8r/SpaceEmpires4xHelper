@@ -5,6 +5,7 @@ signal currentIncome_changed()
 signal currentExpenses_changed()
 
 signal existingShips_changed()
+signal researchedTech_changed()
 signal newShips_changed()
 signal newTech_changed()
 
@@ -47,6 +48,7 @@ var lastTurnCarryOver := 0
 func _ready():
 	resetExistingShips()
 	resetTech()
+	randomize()
 
 func resetEconPhase():
 	colonyIncome = 20
@@ -218,6 +220,24 @@ func currentResearchLevel(techType) -> int:
 
 func isTechMaxLevel(techType) -> bool:
 	return researchedTech.get(techType, 0) == getTechMaxLevel(techType)
+
+func collectSpaceWreck():
+	var dieRoll := randi() % 10 + 1
+	var tech = Tech.ShipSize
+	if dieRoll >= 3:
+		tech = Tech.Attack
+	if dieRoll >= 5:
+		tech = Tech.Defense
+	if dieRoll >= 7:
+		tech = Tech.Tactics
+	if dieRoll >= 8:
+		tech = Tech.Move
+	if dieRoll >= 10:
+		tech = Tech.ShipYard
+	if researchedTech.get(tech, 0) < getTechMaxLevel(tech):
+		researchedTech[tech] = researchedTech.get(tech, 0) + 1
+		emit_signal("researchedTech_changed")
+	return tech
 
 #########################################
 ### SHIPS

@@ -21,7 +21,7 @@ var disabled : bool = false
 
 ## Methods
 func _ready():
-	#Global.connect("newTech_changed", self, "_updateTechReady")
+	Global.connect("researchedTech_changed", self, "_researchedTech_changed")
 	Global.connect("currentIncome_changed", self, "_update")
 	Global.connect("currentExpenses_changed", self, "_update")
 	pass
@@ -43,6 +43,10 @@ func setItem(type):
 	_update()
 
 ## Connected Signals
+func _researchedTech_changed():
+	if Global.researchedTech.get(techType, 0) + 1 != level:
+		setItem(techType)
+
 func _update(any = 0):
 	if disabled:
 		return
