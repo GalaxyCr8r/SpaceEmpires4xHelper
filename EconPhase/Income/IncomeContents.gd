@@ -1,13 +1,18 @@
 extends MarginContainer
 
 ## Provided Signals
-signal value_changed(updated_subTotal)
+signal incomeTotal_changed(new_value)
 
 ## Exported vars
 
 ## Internal Vars
 onready var carryOverAmount : TitleAmount = $VBoxContainer/Misc/CarryOver
 onready var subTotalAmount : TitleAmount = $VBoxContainer/Misc/SubTotal
+onready var spaceWrecksCheckButton : CheckBox = $VBoxContainer/ScrollableIncomeSources/IncomeSources/VBoxContainer/SpaceWrecks/CheckButton
+onready var spaceWrecksAmount : Label = $VBoxContainer/ScrollableIncomeSources/IncomeSources/VBoxContainer/SpaceWrecks/Amount
+onready var spaceWrecksButton : Button = $VBoxContainer/ScrollableIncomeSources/IncomeSources/VBoxContainer/SpaceWrecks/Button
+onready var collectedWreck : Label = $VBoxContainer/ScrollableIncomeSources/IncomeSources/VBoxContainer/Collected
+
 var subTotalCp := 0
 
 var _hwCp:int = 0
@@ -17,23 +22,21 @@ var _5ColonyCp:int = 0
 var _5MineralCp:int = 0
 var _10MineralCp:int = 0
 
-var __ready = false
-
 ## Methods
 func _ready():
-	__ready = true
-	emit_signal("value_changed", subTotalCp)
+	emit_signal("incomeTotal_changed", subTotalCp)
+	collectedWreck.text = ""
 
 func _updateSubTotal():
 	subTotalCp = _hwCp + Global.lastTurnCarryOver
 	subTotalCp += _1ColonyCp + _3ColonyCp + _5ColonyCp
 	subTotalCp += _5MineralCp + _10MineralCp
-	Global.currentIncomeCp = subTotalCp
-	emit_signal("value_changed", subTotalCp)
+	Global.colonyIncome = _hwCp + _1ColonyCp + _3ColonyCp + _5ColonyCp
+	Global.mineralIncome = _5MineralCp + _10MineralCp
+	emit_signal("incomeTotal_changed", subTotalCp)
 	
-	if __ready:
-		carryOverAmount.value = Global.remainingCp
-		subTotalAmount.value = subTotalCp
+	carryOverAmount.value = Global.lastTurnCarryOver
+	subTotalAmount.value = subTotalCp
 
 ## Connected Signals
 func _on_HomeworldStatusRow_value_changed(new_value):
@@ -59,3 +62,18 @@ func _on_5CpMineral_value_changed(new_value):
 func _on_10CpMineral_value_changed(new_value):
 	_10MineralCp = new_value * 10
 	call_deferred("_updateSubTotal")
+
+# Sphess wrecks
+var amountOfSpaceWrecks := 0
+func _on_CheckButton_toggled(button_pressed):
+	spaceWrecksButton.disabled = !button_pressed
+
+func _on_Button_pressed():
+	spaceWrecksCheckButton.pressed = false
+	spaceWrecksButton.disabled = true
+	amountOfSpaceWrecks += 1
+	spaceWrecksAmount.text = str(amountOfSpaceWrecks)
+	
+	var spaceWreckType = Global.collectSpaceWreck()
+	collectedWreck.text = "Collected: " + Global.getTechName(spaceWreckType) +\
+		" Level " + str(Global.researchedTech[spaceWreckType])

@@ -9,6 +9,7 @@ export var value : int = 0 setget set_value, get_value
 export var min_value : int = 0
 export var max_value : int = 2
 export var step : int = 1
+export var disabled : bool = false setget set_disabled
 
 ## Internal Vars
 onready var minus : Button = $MinusButton
@@ -26,14 +27,25 @@ func set_value(new_value : int):
 func get_value() -> int:
 	return value
 
+func set_disabled(new_setting):
+	disabled = new_setting
+	call_deferred("_updateAvailability", true)
+
 func _updateAvailability(force:bool = false):
+	## Had to add this because this is STILL getting called before
+	## things are ready when going from Play to Econ! See #2
+	if minus == null:
+		call_deferred("_updateAvailability", force)
+		return
+	
 	## If we want to force the change, or if the value has changed
-	if force or value != __last_value:
-		__last_value = value
-		emit_signal("value_changed", value)
+	if force or value != __last_value:		
+		minus.disabled = disabled
+		plus.disabled = disabled
 		
-		minus.set_disabled(false)
-		plus.set_disabled(false)
+		if disabled:
+			return
+		
 		if value < min_value:
 			value = min_value
 		if value == min_value:
@@ -43,6 +55,11 @@ func _updateAvailability(force:bool = false):
 			value = max_value
 		if value == max_value:
 			plus.set_disabled(true)
+	
+	## Only update the value if needed
+	if value != __last_value:
+		__last_value = value
+		emit_signal("value_changed", value)
 
 ## Connected Signals
 func _on_MinusButton_button_up():

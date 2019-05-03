@@ -3,13 +3,16 @@ tool
 class_name TitleAmount
 
 export var title := "Title" setget set_title
-export var value = 0 setget set_value,get_value
+export var value := 0 setget set_value,get_value
 export var prefix : String = "" setget set_prefix
 export var postfix : String = "" setget set_postfix
 export var redNegative : bool = true
 
 onready var titleLabel : Label = $Title
 onready var amount : Label = $Amount
+
+func _ready():
+	_updateLabel()
 
 func _updateLabel():
 	if !amount:
@@ -29,10 +32,8 @@ func set_value(new_value:int):
 	value = new_value
 	call_deferred("_updateLabel")
 
-func get_value() -> String:
-	if !amount:
-		return ""
-	return amount.text
+func get_value():
+	return value
 
 func set_prefix(new_prefix:String):
 	prefix = new_prefix

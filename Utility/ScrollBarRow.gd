@@ -12,11 +12,9 @@ onready var currentValue : Label = $CurrentValue
 onready var scrollBar : ScrollBar = $ScrollBar
 onready var upDown : UpDownButton = $UpDownButton
 onready var __last_value : int = value
-var __isReady : bool = false
 
 ## Methods
 func _ready():
-	__isReady = true
 	scrollBar.value = value
 	upDown.value = value
 
@@ -25,10 +23,7 @@ func set_value(new_value:int):
 	if __last_value != value:
 		__last_value = value
 		emit_signal("value_changed", new_value)
-		if __isReady:
-			upDown.value = value
-			scrollBar.value = value
-			_updateLabel(value)
+		call_deferred("_updateAll")
 
 func get_value() -> int:
 	return value
@@ -37,18 +32,32 @@ func set_max_value(new_max:int):
 	if value > new_max:
 		set_value(new_max)
 	upDown.max_value = new_max
+	upDown._updateAvailability(true)
 	scrollBar.max_value = new_max
 
-func _updateLabel(new_value:int):
-	currentValue.text = str(new_value)
+func _updateAll():
+	## Had to add this because this is STILL getting called before
+	## things are ready when going from Play to Econ! See #2
+	if upDown == null:
+		call_deferred("_updateAll")
+		return
+	upDown.value = value
+	scrollBar.value = value
+	_updateLabel()
+
+func _updateLabel():
+	currentValue.text = str(value)
 
 ## Connected Signals
 func _on_CPScrollBar_value_changed(new_value:int):
 	set_value(new_value)
 	upDown.value = new_value
-	_updateLabel(new_value)
+	call_deferred("_updateLabel")
 
 func _on_UpDownButton_value_changed(new_value:int):
+	if scrollBar == null:
+		call_deferred("_on_UpDownButton_value_changed", new_value)
+		return
 	set_value(new_value)
 	scrollBar.value = new_value
-	_updateLabel(new_value)
+	call_deferred("_updateLabel")
