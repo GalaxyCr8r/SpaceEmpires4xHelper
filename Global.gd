@@ -12,7 +12,7 @@ signal newTech_changed()
 #export var STARTING_SCOUTS := 3
 
 ## Internal Vars
-enum ShipType {SC, DD, CA, BC, BB, DN, CO, BS, MR, SY, DC}
+enum ShipType {CO, BS, MR, SY, DC, SC, DD, CA, BC, BB, DN}
 enum Tech {
 	ShipSize, 
 	Attack, 
@@ -63,32 +63,15 @@ func goToPlayPhase():
 		existingShips[shpTyp] = existingShips.get(shpTyp, 0) + newShips[shpTyp]
 	# Add upgraded tech
 	for techTyp in newTech:
-		researchedTech[techTyp] = researchedTech.get(techTyp, 0) + newTech[techTyp]
+		var new_level = newTech[techTyp]
+		if new_level > 0:
+			researchedTech[techTyp] = new_level
 	lastTurnCarryOver = getRemainingCp()
 
 func goToEconPhase():
 	resetEconPhase()
 
 ## Empire-wide
-func resetExistingShips():
-	existingShips = {ShipType.SC: 3, ShipType.CO: 3, ShipType.SY: 4, ShipType.MR: 1}
-	emit_signal("existingShips_changed")
-
-func removeAnExistingShip(shipType):
-	if existingShips[shipType] > 0:
-		existingShips[shipType] -= 1
-		emit_signal("existingShips_changed")
-
-func setNewShipAmount(shipType, amount):
-	if amount < 0:
-		return false
-	newShips[shipType] = amount
-	emit_signal("newShips_changed")
-	updateExpenses()
-
-func resetTech():
-	researchedTech = {Tech.ShipSize: 1, Tech.Move: 1, Tech.ShipYard: 1}
-
 func getExistingMaintance() -> int:
 	var maint := 0
 	for shpTyp in existingShips:
@@ -134,12 +117,26 @@ func updateExpenses():
 	currentExpenses += turnOrderBid
 	emit_signal("currentExpenses_changed", currentExpenses)
 
-## Spending
+#########################################
+### TECHNOLOGY
+
+func resetTech():
+	researchedTech = {Tech.ShipSize: 1, Tech.Move: 1, Tech.ShipYard: 1}
+
+func setNewTechLevel(techType, level):
+	if level < 0 or level > getTechMaxLevel(techType):
+		return false
+	newTech[techType] = level
+	emit_signal("newTech_changed")
+	updateExpenses()
+
 func getCostOfNewTech() -> int:
 	var cost := 0
 	for techTyp in newTech:
-		print("New tech type found: ", techTyp, " level: ", newTech[techTyp])
-		cost += getTechCost(techTyp, newTech[techTyp])
+		var new_level = newTech[techTyp]
+		if researchedTech.get(techTyp, 0) < new_level:
+			print("New tech type found: ", techTyp, " level: ", new_level)
+			cost += getTechCost(techTyp, new_level)
 	return cost
 
 func getTechCost(techType, level) -> int:
@@ -209,7 +206,7 @@ func getTechMaxLevel(techType) -> int:
 		Tech.Move:
 			return 7
 		Tech.Terraform, Tech.Exploration:
-			return 0
+			return 1
 		_:
 			print("WARNING! Tech type >", techType, "< doesn't exist!")
 			return 0
@@ -218,6 +215,27 @@ func currentResearchLevel(techType) -> int:
 	return researchedTech.get(techType, 0) if \
 		researchedTech.get(techType, 0) >= newTech.get(techType, 0) else \
 		newTech.get(techType, 0)
+
+func isTechMaxLevel(techType) -> bool:
+	return researchedTech.get(techType, 0) == getTechMaxLevel(techType)
+
+#########################################
+### SHIPS
+func resetExistingShips():
+	existingShips = {ShipType.SC: 3, ShipType.CO: 3, ShipType.SY: 4, ShipType.MR: 1}
+	emit_signal("existingShips_changed")
+
+func removeAnExistingShip(shipType):
+	if existingShips[shipType] > 0:
+		existingShips[shipType] -= 1
+		emit_signal("existingShips_changed")
+
+func setNewShipAmount(shipType, amount):
+	if amount < 0:
+		return false
+	newShips[shipType] = amount
+	emit_signal("newShips_changed")
+	updateExpenses()
 
 func getCostOfNewShips() -> int:
 	var cost := 0

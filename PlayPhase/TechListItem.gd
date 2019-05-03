@@ -17,7 +17,7 @@ var techType := -1
 func set(new_techType, amount):
 	techType = new_techType
 	nameLabel.text = Global.getTechName(techType)
-	levelLabel.text = str(amount)
+	levelLabel.text = "Level " + str(amount)
 
 ## Connected Signals
 func _on_InfoButton_pressed():

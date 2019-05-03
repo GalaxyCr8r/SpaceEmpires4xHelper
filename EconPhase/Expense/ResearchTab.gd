@@ -1,22 +1,19 @@
 extends Tabs
 
 ## Provided Signals
-signal value_changed(new_value)
 
 ## Exported vars
-export var cost : int = 0
+export var listItem : PackedScene
 
 ## Internal Vars
-onready var __last_cost : int = cost
+onready var techList : VBoxContainer = $MarginContainer/VBoxContainer/ScrollContainer/TechList
 
 func _ready():
-	Global.connect("currentIncome_changed", self, "_updateMax")
+	for techType in Global.Tech.values():
+		var item = listItem.instance()
+		techList.add_child(item)
+		item.setItem(techType)
+	Global.connect("newTech_changed", self, "_update")
 
-func _updateMax(currentIncome):
-	$MarginContainer/CenterContainer/VBoxContainer/ScrollBarRow.set_max_value(currentIncome)
-
-func _on_ScrollBarRow_value_changed(new_value):
-	cost = new_value
-	if __last_cost != cost:
-		__last_cost = cost
-		emit_signal("value_changed", cost)
+func _update():
+	pass # TODO Update total research cost.

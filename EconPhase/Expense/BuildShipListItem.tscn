@@ -56,17 +56,9 @@ custom_colors/font_color = Color( 0.759038, 1, 0.745098, 1 )
 text = "+1"
 valign = 1
 
-[node name="UpDownButton" parent="HBoxContainer" instance=ExtResource( 4 )]
-anchor_right = 0.0
-margin_left = 285.0
-margin_right = 334.0
-margin_bottom = 23.0
-size_flags_vertical = 1
-max_value = 16
-
 [node name="Cost" type="Label" parent="HBoxContainer"]
-margin_left = 338.0
-margin_right = 380.0
+margin_left = 285.0
+margin_right = 327.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 42, 0 )
 size_flags_vertical = 5
@@ -74,5 +66,13 @@ custom_fonts/font = ExtResource( 2 )
 text = "99 CP"
 align = 2
 valign = 1
+
+[node name="UpDownButton" parent="HBoxContainer" instance=ExtResource( 4 )]
+anchor_right = 0.0
+margin_left = 331.0
+margin_right = 380.0
+margin_bottom = 23.0
+size_flags_vertical = 1
+max_value = 16
 
 [connection signal="value_changed" from="HBoxContainer/UpDownButton" to="." method="_on_UpDownButton_value_changed"]

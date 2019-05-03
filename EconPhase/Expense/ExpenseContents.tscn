@@ -120,5 +120,3 @@ value = 0
 redNegative = true
 
 [connection signal="value_changed" from="VBoxContainer/TurnOrderBid/ScrollBarRow" to="." method="_on_TurnOrderBid_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/TabContainer/Research" to="." method="_on_Research_value_changed"]
-[connection signal="value_changed" from="VBoxContainer/TabContainer/Build" to="." method="_on_Build_value_changed"]

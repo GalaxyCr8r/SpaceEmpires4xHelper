@@ -2,7 +2,6 @@ extends MarginContainer
 
 ## Provided Signals
 signal info_pressed(shipType)
-signal amount_changed(new_amount)
 
 ## Exported vars
 #export var value : int = 0 setget set_value, get_value
@@ -20,7 +19,8 @@ var amount
 
 ## Methods
 func _ready():
-	Global.connect("newTech_changed", self, "_updateTechReady")
+	#Global.connect("newTech_changed", self, "_updateTechReady")
+	Global.connect("currentIncome_changed", self, "_updateColours")
 	Global.connect("currentExpenses_changed", self, "_updateColours")
 
 func setItem(type):

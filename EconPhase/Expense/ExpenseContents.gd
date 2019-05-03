@@ -44,11 +44,3 @@ func _on_TurnOrderBid_value_changed(new_value):
 	turnOrderBid = new_value
 	Global.turnOrderBid = turnOrderBid
 	call_deferred("_updateAll")
-
-func _on_Research_value_changed(new_value):
-	resCost.value = new_value
-	call_deferred("_updateAll")
-
-func _on_Build_value_changed(new_value):
-	buildCost.value = new_value
-	call_deferred("_updateAll")
