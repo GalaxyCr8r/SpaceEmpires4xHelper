@@ -22,7 +22,7 @@ func _ready():
 	# Do NOT set res/build cost here because by default don't build/research anything.
 	Global.connect("currentIncome_changed", self, "_updateMax")
 	Global.connect("currentExpenses_changed", self, "_updateExpenses")
-	call_deferred("_updateAll")
+	Global.turnOrderBid = turnOrderBid
 
 func _updateMax(currentIncome):
 	turnOrderBidRow.set_max_value(currentIncome)
