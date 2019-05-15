@@ -138,5 +138,4 @@ margin_bottom = 29.0
 size_flags_horizontal = 7
 custom_fonts/font = ExtResource( 8 )
 text = "Go to Economy Phase"
-
 [connection signal="button_up" from="VBoxContainer/PanelContainer/VBoxContainer/HBoxContainer/EconPhaseButton" to="." method="_on_EconPhaseButton_button_up"]
