@@ -123,27 +123,28 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 297.0
 margin_right = 340.0
-margin_bottom = 329.0
+margin_bottom = 398.0
+size_flags_vertical = 3
 title = "Remaining CPs"
 postfix = " CP"
 
 [node name="HorizontalRuler4" parent="VBoxContainer" instance=ExtResource( 4 )]
-margin_top = 333.0
+margin_top = 402.0
 margin_right = 340.0
-margin_bottom = 341.0
+margin_bottom = 410.0
 
 [node name="SectionTitle4" type="Label" parent="VBoxContainer"]
-margin_top = 345.0
+margin_top = 414.0
 margin_right = 340.0
-margin_bottom = 368.0
+margin_bottom = 437.0
 custom_fonts/font = ExtResource( 2 )
 text = "Continue to next Phase?"
 align = 1
 
 [node name="DoneWithEconPhase" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 372.0
+margin_top = 441.0
 margin_right = 340.0
-margin_bottom = 401.0
+margin_bottom = 470.0
 alignment = 1
 
 [node name="DoneButton" type="Button" parent="VBoxContainer/DoneWithEconPhase"]
@@ -153,5 +154,4 @@ margin_bottom = 29.0
 rect_min_size = Vector2( 150, 0 )
 custom_fonts/font = ExtResource( 2 )
 text = "Done"
-
 [connection signal="button_up" from="VBoxContainer/DoneWithEconPhase/DoneButton" to="." method="_on_Done_button_up"]
